@@ -3,18 +3,17 @@ const path = require("path");
 const minimist = require("minimist");
 
 const args = minimist(process.argv.slice(2));
-const port = args.port || 3000;
+const port = args.port || 5000;
 
 const app = express();
 
-// Serve static files from the current directory
+// Serve all static files in the folder (home.html, project.html, etc.)
 app.use(express.static(path.join(__dirname)));
 
-// Route for /registration explicitly
-app.get("/registration", (req, res) => {
-  res.sendFile(path.join(__dirname, "registration.html"));
+// Explicitly define /registration route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "home.html"));
 });
-
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
