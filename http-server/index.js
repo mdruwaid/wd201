@@ -3,26 +3,23 @@ const path = require("path");
 const minimist = require("minimist");
 
 const args = minimist(process.argv.slice(2));
-const port = args._[0] || 5000; // Use positional arg, not --port
+const port = args.port || 3000;
 
 const app = express();
 
-// Serve static files from public folder
-app.use(express.static(path.join(__dirname, "public")));
+// Serve static files like home.html, project.html, etc.
+app.use(express.static(path.join(__dirname)));
 
-// Route for home page
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "home.html"));
+  res.sendFile(path.join(__dirname, "home.html"));
 });
 
-// Route for project page
 app.get("/project", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "project.html"));
+  res.sendFile(path.join(__dirname, "project.html"));
 });
 
-// Route for registration page
 app.get("/registration", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "registration.html")); // Corrected spelling
+  res.sendFile(path.join(__dirname, "registration.html"));
 });
 
 app.listen(port, () => {
